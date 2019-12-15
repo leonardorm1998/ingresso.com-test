@@ -36,9 +36,10 @@ const ListCard = (props: IProps) => {
       (getTypes(item.showtimes)).some((type) =>
         type.name === selectedType.name))
 
-  const movies = props.data.filter((item) =>
-    hasValidSearchValue(item) && hasValidTypes(item)
-  )
+  const movies = 
+    !props.selectedTypes.length ?
+      props.data.filter((item) => hasValidSearchValue(item))
+    : props.data.filter((item) => hasValidSearchValue(item) && hasValidTypes(item))
 
   return (
     <SListCardContainer>
@@ -50,7 +51,7 @@ const ListCard = (props: IProps) => {
               title: movie.event.title,
               img: movie.event.images[0].url,
               completeTags: movie.event.completeTags,
-              trailer: movie.event.trailers[0].url, 
+              trailer: movie.event.trailers[0].url,
               siteURL: movie.event.siteURL
             }}
           />
